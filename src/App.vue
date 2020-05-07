@@ -11,7 +11,7 @@
     <div class="language-container">
       <label for="language">{{dictionary.languageLabel}}:  </label>
       <input type="radio" name="language" value="en" v-model="language"/>English
-      <input type="radio" name="language" value="es" v-model="language"/>Español
+      <input type="radio" name= "language" value="es" v-model="language"/>Español
     </div>
   </div>
 </template>
