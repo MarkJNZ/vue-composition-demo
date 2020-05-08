@@ -2,12 +2,7 @@
   <div id="app">
     <div class="form">
       <label for="username">{{ dictionary.usernameLabel }}:</label>
-      <input
-        id="username"
-        class="input"
-        :value="username"
-        @input="updateUsername"
-      />
+      <input id="username" class="input" :value="username" @input="updateUsername" />
       <label for="password">{{ dictionary.passwordLabel }}:</label>
       <input
         id="password"
@@ -22,114 +17,104 @@
     </div>
     <div class="language-container">
       <label for="language">{{ dictionary.languageLabel }}: </label>
-      <input
-        type="radio"
-        name="language"
-        value="en"
-        v-model="language"
-      />English
-      <input
-        type="radio"
-        name="language"
-        value="es"
-        v-model="language"
-      />Español
+      <input v-model="language" type="radio" name="language" value="en" />English
+      <input v-model="language" type="radio" name="language" value="es" />Español
     </div>
   </div>
 </template>
 
 <script>
-  import axios from "axios";
-  import { ref, computed } from "@vue/composition-api";
-  import en from "./constants/en.json";
-  import es from "./constants/es.json";
+import axios from 'axios'
+import { ref, computed } from '@vue/composition-api'
+import en from './constants/en.json'
+import es from './constants/es.json'
 
-  const useLogin = () => {
-    const username = ref("");
-    const password = ref("");
-    const updateUsername = event => {
-      username.value = event.target.value;
-    };
-    const updatePassword = event => {
-      password.value = event.target.value;
-    };
-    const submit = async () => {
-      // probably add some other business logic here :)
-      await axios.post("https://jsonplaceholder.typicode.com/users", {
-        username,
-        password
-      });
-      alert("User created");
-    };
-    return {
+const useLogin = () => {
+  const username = ref('')
+  const password = ref('')
+  const updateUsername = event => {
+    username.value = event.target.value
+  }
+  const updatePassword = event => {
+    password.value = event.target.value
+  }
+  const submit = async () => {
+    // probably add some other business logic here :)
+    await axios.post('https://jsonplaceholder.typicode.com/users', {
       username,
-      password,
-      updateUsername,
-      updatePassword,
-      submit
-    };
-  };
+      password
+    })
+    alert('User created')
+  }
+  return {
+    username,
+    password,
+    updateUsername,
+    updatePassword,
+    submit
+  }
+}
 
-  const useLanguage = () => {
-    const language = ref("en");
-    const dictionary = computed(() => (language.value === "es" ? es : en));
+const useLanguage = () => {
+  const language = ref('en')
+  const dictionary = computed(() => (language.value === 'es' ? es : en))
+  return {
+    language,
+    dictionary
+  }
+}
+
+export default {
+  name: 'App',
+  setup() {
     return {
-      language,
-      dictionary
-    };
-  };
-
-  export default {
-    name: "app",
-    setup() {
-      return {
-        ...useLogin(),
-        ...useLanguage()
-      };
+      ...useLogin(),
+      ...useLanguage()
     }
-  };
+  }
+}
 </script>
 
 <style>
-  #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 
-  .input {
-    padding: 10px;
-    font-size: 12px;
-    outline: none;
-    margin: 10px 0;
-  }
+.input {
+  padding: 10px;
+  font-size: 12px;
+  outline: none;
+  margin: 10px 0;
+}
 
-  .form {
-    display: flex;
-    flex-direction: column;
-    width: 30vw;
-    margin: auto;
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  margin: auto;
+}
 
-  .submit {
-    padding: 10px;
-    border: none;
-    background: #00aced;
-    color: #fff;
-    font-size: 15px;
-    cursor: pointer;
-  }
+.submit {
+  padding: 10px;
+  border: none;
+  background: #00aced;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
 
-  .language-container {
-    width: 50vw;
-    margin: auto;
-    padding-top: 40px;
-  }
+.language-container {
+  width: 50vw;
+  margin: auto;
+  padding-top: 40px;
+}
 
-  label {
-    text-align: left;
-  }
+label {
+  text-align: left;
+}
 </style>
